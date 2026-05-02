@@ -1,26 +1,252 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ============================================
+   THEME — Tailwind v4 CSS-first config
+   ============================================ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-matrix-green: #00FF41;
+  --color-matrix-green-dim: #00cc33;
+  --color-matrix-dark: #003B00;
+  --color-matrix-black: #000000;
+  --color-matrix-gray: #0a0a0a;
+  --color-matrix-gray-light: #1a1a1a;
+  --color-matrix-gray-mid: #2a2a2a;
+  --color-matrix-border: rgba(0, 255, 65, 0.15);
+  --color-matrix-glow: rgba(0, 255, 65, 0.4);
+
+  --font-heading: var(--font-heading), 'Space Grotesk', system-ui, sans-serif;
+  --font-body: var(--font-body), 'Inter', system-ui, sans-serif;
+  --font-mono: var(--font-mono), 'Space Mono', ui-monospace, monospace;
+
+  --animate-glow-pulse: glow-pulse 2.5s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-glitch: glitch 4s infinite;
+  --animate-scanline: scanline 10s linear infinite;
+  --animate-blink: blink 1s step-end infinite;
+  --animate-fadeInUp: fadeInUp 0.6s ease-out forwards;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================
+   BASE STYLES
+   ============================================ */
+:root {
+  --background: #000000;
+  --foreground: #d4d4d4;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #003B00 #0a0a0a;
+}
+
+*::-webkit-scrollbar { width: 5px; }
+*::-webkit-scrollbar-track { background: #050505; }
+*::-webkit-scrollbar-thumb { background: #1a3a1a; border-radius: 3px; }
+*::-webkit-scrollbar-thumb:hover { background: #00FF41; }
+
+::selection {
+  background: rgba(0, 255, 65, 0.2);
+  color: #00FF41;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #000000;
+  color: #d4d4d4;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   TYPOGRAPHY SYSTEM
+   ============================================ */
+h1, h2, h3, h4, h5, h6,
+.font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+.font-body {
+  font-family: var(--font-body);
+  letter-spacing: 0;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(0, 255, 65, 0.2), 0 0 8px rgba(0, 255, 65, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(0, 255, 65, 0.4), 0 0 24px rgba(0, 255, 65, 0.15);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes glitch {
+  0% { text-shadow: 1px 0 rgba(0, 255, 65, 0.4), -1px 0 rgba(0, 59, 0, 0.4); }
+  1.5% { text-shadow: -1px 0 rgba(0, 255, 65, 0.4), 1px 0 rgba(0, 59, 0, 0.4); }
+  3% { text-shadow: 0 0 transparent; }
+  100% { text-shadow: 0 0 transparent; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   GRID OVERLAY BACKGROUND
+   ============================================ */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 255, 65, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.025) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ============================================
+   SCANLINE OVERLAY (subtle, not distracting)
+   ============================================ */
+.scanline-overlay::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 255, 65, 0.008) 3px,
+    rgba(0, 255, 65, 0.008) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanline 10s linear infinite;
+}
+
+/* ============================================
+   GLASSMORPHISM UTILITIES (refined)
+   ============================================ */
+.glass {
+  background: rgba(8, 8, 8, 0.7);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(0, 255, 65, 0.08);
+}
+
+.glass-card {
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 255, 65, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(0, 255, 65, 0.25);
+  box-shadow:
+    0 0 30px rgba(0, 255, 65, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* ============================================
+   NEON TEXT GLOW (refined — less aggressive)
+   ============================================ */
+.neon-text {
+  color: #00FF41;
+  text-shadow:
+    0 0 8px rgba(0, 255, 65, 0.5),
+    0 0 16px rgba(0, 255, 65, 0.2);
+}
+
+.neon-text-subtle {
+  color: #00FF41;
+  text-shadow: 0 0 20px rgba(0, 255, 65, 0.25);
+}
+
+/* ============================================
+   TERMINAL STYLES
+   ============================================ */
+.terminal {
+  background: rgba(5, 5, 5, 0.95);
+  border: 1px solid rgba(0, 255, 65, 0.12);
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0, 255, 65, 0.06);
+}
+
+.terminal-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+/* ============================================
+   SECTION DIVIDERS
+   ============================================ */
+section {
+  position: relative;
+}
+
+section + section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(80%, 600px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .scanline-overlay::after { display: none; }
 }
