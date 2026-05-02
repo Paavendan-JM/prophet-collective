@@ -245,7 +245,7 @@ export default function FlowField() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 z-0 pointer-events-none"
+      className="fixed inset-0 z-0 pointer-events-none opacity-30"
       aria-hidden="true"
     />
   );
