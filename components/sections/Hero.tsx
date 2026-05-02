@@ -1,12 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import GlowButton from '@/components/ui/GlowButton';
-
-const FlowField = dynamic(() => import('@/components/ui/FlowField'), {
-  ssr: false,
-});
 
 export default function Hero() {
   return (
@@ -14,8 +9,7 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Flow Field Background */}
-      <FlowField />
+      {/* Flow Field Background removed */}
 
       {/* Gradient overlay for depth */}
       <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/40 via-transparent to-black" />
