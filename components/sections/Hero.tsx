@@ -11,7 +11,22 @@ export default function Hero() {
     >
       {/* Flow Field Background removed */}
 
-      {/* Removed isolating background gradients to allow full-page CyberNetwork to show through */}
+      {/* Video Background with Bottom Fade */}
+      <div className="absolute inset-0 z-[1] w-full h-full pointer-events-none">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-50"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+            maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)',
+          }}
+        >
+          <source src="/hero-bg.mp4" type="video/mp4" />
+        </video>
+      </div>
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
