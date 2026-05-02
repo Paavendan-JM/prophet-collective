@@ -20,7 +20,7 @@ const GridOverlay = dynamic(() => import('@/components/effects/GridOverlay'), {
   ssr: false,
 });
 
-const MatrixRain = dynamic(() => import('@/components/ui/MatrixRain'), {
+const CyberNetwork = dynamic(() => import('@/components/ui/CyberNetwork'), {
   ssr: false,
 });
 
@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <>
       <CursorGlow />
-      <MatrixRain />
+      <CyberNetwork />
       <GridOverlay />
       <Navbar />
       <main>

@@ -11,9 +11,7 @@ export default function Hero() {
     >
       {/* Flow Field Background removed */}
 
-      {/* Gradient overlay for depth */}
-      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/40 via-transparent to-black" />
-      <div className="absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_center,transparent_30%,black_80%)]" />
+      {/* Removed isolating background gradients to allow full-page CyberNetwork to show through */}
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
